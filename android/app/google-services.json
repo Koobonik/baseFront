@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "446331697827",
+    "firebase_url": "https://base-arduino-app.firebaseio.com",
+    "project_id": "base-arduino-app",
+    "storage_bucket": "base-arduino-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446331697827:android:3f71f487ca1cd7e968dd16",
+        "android_client_info": {
+          "package_name": "com.base.arduinoApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446331697827-78rjoihasabddgmhf4da8s5939bftuq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3W5eBsybilg8dxjLavoJILGz_rXz1PjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446331697827-78rjoihasabddgmhf4da8s5939bftuq7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "446331697827-4r6a4a5jbqqkelo4ln89k45rjafttmiv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.arduinoApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
