@@ -1,19 +1,11 @@
 import 'package:arduino_app/firebase.dart';
-import 'package:arduino_app/httpController.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
-  FirebaseController.firebaseconfig();
-  // HttpController httpController = new HttpController();
-   String url = "http://cafecostes.com:8081";
-   Map map = null;
-   String hi = HttpController.sendRequest(url, map);
-  // print("리턴값은 : ");
-   print(hi);
-  runApp(MyApp());
+void main() {
+  runApp(Template());
 } 
 
-class MyApp extends StatelessWidget {
+class Template extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -59,7 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      print(FirebaseController.fi);
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
