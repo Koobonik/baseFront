@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 void main() async {
   FirebaseController.firebaseconfig();
   // HttpController httpController = new HttpController();
-   String url = "http://cafecostes.com:8081";
-   Map map = null;
-   String hi = HttpController.sendRequest(url, map);
-  // print("리턴값은 : ");
-   print(hi);
+  //  String url = "http://cafecostes.com:8081/registerFirebaseToken";
+  //  Map map = { "data1" :  FirebaseController.firebasetoken, "data2" : "hihi", "data3" : "hello"};
+  //  var hi = HttpController.sendRequest(url, map);
+  // // print("리턴값은 : ");
+  //  print(hi);
   runApp(MyApp());
 } 
 
