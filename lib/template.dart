@@ -1,4 +1,3 @@
-import 'package:arduino_app/firebase.dart';
 import 'package:flutter/material.dart';
 
 void main() {

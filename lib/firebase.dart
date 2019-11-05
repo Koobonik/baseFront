@@ -46,7 +46,7 @@ class FirebaseController {
   // 얘가 토근 가져오는거
   fi.getToken().then((token) {
     print(token); // Print the Token in Console
-    String url = "http://cafecostes.com:8081/registerFirebaseToken";
+    String url = HttpController.url+"/registerFirebaseToken";
    Map map = { "data1" :  token, "data2" : "hihi", "data3" : "hello"};
    var hi = HttpController.sendRequest(url, map);
   // print("리턴값은 : ");

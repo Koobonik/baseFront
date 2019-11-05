@@ -1,9 +1,15 @@
+import 'package:arduino_app/DataController.dart';
 import 'package:arduino_app/firebase.dart';
 import 'package:arduino_app/httpController.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   FirebaseController.firebaseconfig();
+  
+  DataController.pushStatus = await HttpController.sendRequest(HttpController.url+"/getStatus", null);
+  DataController.save();
+  // DataController.save();
+  // DataController.read();
   // HttpController httpController = new HttpController();
   //  String url = "http://cafecostes.com:8081/registerFirebaseToken";
   //  Map map = { "data1" :  FirebaseController.firebasetoken, "data2" : "hihi", "data3" : "hello"};
@@ -11,6 +17,7 @@ void main() async {
   // // print("리턴값은 : ");
   //  print(hi);
   runApp(MyApp());
+  // DataController.pushStatus = HttpController.sendRequest(HttpController.url+"/getStatus", null);
 } 
 
 class MyApp extends StatelessWidget {
@@ -20,15 +27,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '기본조 아두이노',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: '왓칭띵'),
@@ -56,7 +54,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  List<bool> isSelected;
   void _incrementCounter() {
     setState(() {
       print(FirebaseController.fi);
@@ -68,7 +66,22 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+  @override
+    void initState() {
+        isSelected = [true, false];
+        super.initState();
+        if(DataController.pushStatus == "true"){
+          isSelected[0] = true;
+          isSelected[1] = false;
+        }
+        else {
+          isSelected[0] = false;
+          isSelected[1] = true;
+        }
+        
+    }
 
+    
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -84,25 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(
+              '알림 스위치',
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
@@ -110,6 +110,58 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            ToggleButtons(
+                borderColor: Colors.black,
+                fillColor: Colors.blue,
+                borderWidth: 2,
+                selectedBorderColor: Colors.black,
+                selectedColor: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                children: <Widget>[
+                    Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                        '알림을 받습니다.',
+                        style: TextStyle(fontSize: 16),
+                    ),
+                    ),
+                    Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                        '알림을 받지 않습니다.',
+                        style: TextStyle(fontSize: 16),
+                    ),
+                    ),
+                ],
+                onPressed: (int index) {
+                    setState(() {
+                    for (int i = 0; i < isSelected.length; i++) {
+                        if (i == index) {
+                        isSelected[i] = true;
+                        } else {
+                        isSelected[i] = false;
+                        }
+                    }
+                    if(index == 0){
+                      String url = HttpController.url+"/ChangeStatus";
+                      Map map = { "data1" :  "true", "data2" : "hihi", "data3" : "hello"};
+                      var response = HttpController.sendRequest(url, map);
+                      print(response);
+                      DataController.pushStatus = "true";
+                    }
+                    else{
+                      String url = HttpController.url+"/ChangeStatus";
+                      Map map = { "data1" :  "false", "data2" : "hihi", "data3" : "hello"};
+                      var response = HttpController.sendRequest(url, map);
+                      print(response);
+                      DataController.pushStatus = "false";
+                    }
+                    DataController.save();
+                    
+                    });
+                },
+                isSelected: isSelected,
+                ),
           ],
         ),
       ),
