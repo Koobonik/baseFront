@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DataController {
 
   static String pushStatus = "true";
+  static var pushLogs = List();
+
   static Future save() async {
     print("userinfo.save() 실행");
     final prefs = await SharedPreferences.getInstance();

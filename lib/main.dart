@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:arduino_app/DataController.dart';
+import 'package:arduino_app/DataController.dart' as prefix0;
 import 'package:arduino_app/firebase.dart';
 import 'package:arduino_app/httpController.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +10,9 @@ void main() async {
   FirebaseController.firebaseconfig();
   
   DataController.pushStatus = await HttpController.sendRequest(HttpController.url+"/getStatus", null);
+  String response = await HttpController.sendRequest(HttpController.url+"/getLogs", null);
+  DataController.pushLogs = json.decode(response);
+  print(DataController.pushLogs[0]["logNum"]);
   DataController.save();
   // DataController.save();
   // DataController.read();
@@ -96,7 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: ListView(children: <Widget>[
+        Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -162,9 +169,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 isSelected: isSelected,
                 ),
+                //Text(DataController.pushLogs.toString()),
+                Column(children: List.generate(DataController.pushLogs.length, (index) => Text(
+                  DataController.pushLogs[index]["date"] + " " + DataController.pushLogs[index]["access"],
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+        ),),
+                
           ],
         ),
       ),
+      ],),
+      
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
