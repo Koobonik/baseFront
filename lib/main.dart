@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:arduino_app/DataController.dart';
-import 'package:arduino_app/DataController.dart' as prefix0;
 import 'package:arduino_app/firebase.dart';
 import 'package:arduino_app/httpController.dart';
 import 'package:flutter/material.dart';
@@ -127,16 +126,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                     Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        '알림을 받습니다.',
+                    child: Row(
+                      children: <Widget>[
+                      Icon(Icons.lock),
+                      Text(
+                        '잠그기',
                         style: TextStyle(fontSize: 16),
+                    ),
+                      ],
                     ),
                     ),
                     Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        '알림을 받지 않습니다.',
+                    child: Row(
+                      children: <Widget>[
+                      Icon(Icons.lock_open),
+                      Text(
+                        '잠금풀기',
                         style: TextStyle(fontSize: 16),
+                    ),
+                      ],
                     ),
                     ),
                 ],
